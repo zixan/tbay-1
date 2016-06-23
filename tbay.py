@@ -49,7 +49,19 @@ class Bid(Base):
     floating_price = Column(Integer, nullable=False)
     items = relationship("Items", secondary="bid_item_association",
                             backref="biditem")
-    
+
+
+beyonce = User(username="queenbey", password="crazyinlove", items="baseball")
+jayz = User(username="jayznyc", password="hovahova")
+solange = User(username="sistersol", password="lilknowles")
+
+baseball = Item(name="baseball", description="Yankees Baseball for Sale")
+
+Base.metadata.create_all(engine)
+
+session.add_all([baseball, beyonce, jayz, solange])
+session.commit()
+
 # beyonce = User()
 # beyonce.username = "bknowles"
 # beyonce.password = "crazyinlove"
@@ -64,7 +76,7 @@ class Bid(Base):
 # session.add_all([beyonce, sylvester, jane])
 # session.commit()
 
-# prints user info
+# # prints user info
 # for user in session.query(User).all():
 #     print user.username
 #     print user.password

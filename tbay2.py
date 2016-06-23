@@ -2,26 +2,23 @@ from tbay import User, Item, Bid, session
 
 beyonce = User()
 beyonce.username = "bknowles"
-beyonce.password = "uhohuhohuhohohnana"
-session.add(beyonce)
-session.commit()
+beyonce.password = "crazyinlove"
+
+sylvester = User()
+sylvester.username = "sylvester"
+sylvester.password = "meow453"
 
 jayz = User()
-jayz.username = "jayznyc"
-jayz.password = "hovahova"
-session.add(jayz)
+jane.username = "jayznyc"
+jane.password = "hovahova"
+
+Base.metadata.create_all(engine)
+
+session.add_all([beyonce, sylvester, jayz])
 session.commit()
 
-headphones = Item()
-headphones.name = "redbeats"
-headphones.description = "Beats by Dre, Noise Cancelling"
-session.add(headphones)
+baseball = Item()
+headphones.name = "baseball"
+headphones.description = "Who wants to play ball? Get your baseball here!"
+session.add(baseball)
 session.commit()
-
-highheels = Item()
-highheels.name = "stilettos"
-highheels.description = "Lemonade Stilettos"
-session.add(highheels)
-session.commit()
-
-session.query(User).all()
