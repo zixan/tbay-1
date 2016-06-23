@@ -9,7 +9,7 @@ Base = declarative_base()
 
 from datetime import datetime
 
-from sqlalchemy import Column, Integer, String, DateTime, ForeignKey
+from sqlalchemy import Table, Column, Integer, String, DateTime, ForeignKey
 from sqlalchemy.orm import relationship
 
 user_bid_table = Table('user_bid_association', Base.metadata,
@@ -30,7 +30,7 @@ class Item(Base):
     description = Column(String)
     start_time = Column(DateTime, default=datetime.utcnow)
     
-    seller_id = Column(Integer, ForeignKey(seller.id), nullable=False)
+    seller_id = Column(Integer, ForeignKey('seller.id'), nullable=False)
 
 class User(Base):
     __tablename__ = "users"
@@ -50,9 +50,6 @@ class Bid(Base):
     items = relationship("Items", secondary="bid_item_association",
                             backref="biditem")
     
-Base.metadata.create_all(engine)
-
-
 # beyonce = User()
 # beyonce.username = "bknowles"
 # beyonce.password = "crazyinlove"
@@ -74,10 +71,10 @@ Base.metadata.create_all(engine)
 #     print user.id
 
 #prints item info    
-for item in session.query(Item).all():
-    print item.id
-    print item.name
-    print item.description
+# for item in session.query(Item).all():
+#     print item.id
+#     print item.name
+#     print item.description
     
 ##change username of 31st user
 # user = session.query(User).get(31)
