@@ -23,17 +23,17 @@ bid_item_table = Table('bid_item_association', Base.metadata,
 )
 
 class Item(Base):
-    __tablename__ = "items"
+    __tablename__ = "item"
 
     id = Column(Integer, primary_key=True)
     name = Column(String, nullable=False)
     description = Column(String)
     start_time = Column(DateTime, default=datetime.utcnow)
     
-    seller_id = Column(Integer, ForeignKey('seller.id'), nullable=False)
+    seller_id = Column(Integer, ForeignKey('user.id'), nullable=False)
 
 class User(Base):
-    __tablename__ = "users"
+    __tablename__ = "user"
 
     id = Column(Integer, primary_key=True)
     username = Column(String, nullable=False)
@@ -43,21 +43,25 @@ class User(Base):
                             backref="userbid")
 
 class Bid(Base):
-    __tablename__ = "bids"
+    __tablename__ = "bid"
 
     id = Column(Integer, primary_key=True)
     floating_price = Column(Integer, nullable=False)
-    items = relationship("Items", secondary="bid_item_association",
+    items = relationship("Item", secondary="bid_item_association",
                             backref="biditem")
 
 
-beyonce = User(username="queenbey", password="crazyinlove", items="baseball")
+Base.metadata.drop_all(engine)
+Base.metadata.create_all(engine)
+
+baseball = Item(name="baseball", description="Yankees Baseball for Sale")
+beyonce = User(username="queenbey", password="crazyinlove", items=baseball)
 jayz = User(username="jayznyc", password="hovahova")
 solange = User(username="sistersol", password="lilknowles")
 
-baseball = Item(name="baseball", description="Yankees Baseball for Sale")
 
-Base.metadata.create_all(engine)
+
+
 
 session.add_all([baseball, beyonce, jayz, solange])
 session.commit()
