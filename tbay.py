@@ -55,16 +55,21 @@ Base.metadata.drop_all(engine)
 Base.metadata.create_all(engine)
 
 baseball = Item(name="baseball", description="Yankees Baseball for Sale")
-beyonce = User(username="queenbey", password="crazyinlove", items=baseball)
+beyonce = User(username="queenbey", password="crazyinlove", items=[baseball])
 jayz = User(username="jayznyc", password="hovahova")
 solange = User(username="sistersol", password="lilknowles")
 
 
-
-
-
 session.add_all([baseball, beyonce, jayz, solange])
+# session.add_all([ jayz, solange])
 session.commit()
+
+for user in session.query(User).all():
+    for item in user.items:
+        print item.name
+    print user.username
+    print user.password
+    print user.id
 
 # beyonce = User()
 # beyonce.username = "bknowles"
